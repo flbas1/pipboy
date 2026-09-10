@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,8 +17,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // import com.fasterxml.jackson.databind.JsonNode;
 // import org.springframework.core.io.ClassPathResource;
@@ -34,6 +38,9 @@ public class MenuController {
 
     @Value("${music.assistant.token}")
     private String musicAssistantToken;
+
+    @Value("${music.assistant.player-id}")
+    private String musicAssistantPlayerId;
 
     public MenuController(
             MenuService menuService,
@@ -105,11 +112,11 @@ public class MenuController {
                   "message_id": "pipboy",
                   "command": "player_queues/play_media",
                   "args": {
-                    "queue_id": "b-3bm1zUHC1bBHsWNWw7FQ5wvsUj9B3rCyUW61iK1Rs",
+                    "queue_id": "%s",
                     "media": [ "apple_music://track/1651694271"]
                   }
                 }
-                """;
+                """.formatted(musicAssistantPlayerId);
 
         return restClient.post()
                 .uri("/api")
@@ -120,5 +127,130 @@ public class MenuController {
                 .body(body)
                 .retrieve()
                 .body(String.class);
+    }
+
+    @GetMapping("/ma-next")
+    public String nextTrack() {
+
+        String body = """
+                {
+                  "message_id": "pipboy",
+                  "command": "player_queues/next",
+                  "args": {
+                    "queue_id": "%s"
+                  }
+                }
+                """.formatted(musicAssistantPlayerId);
+
+        return restClient.post()
+                .uri("/api")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(
+                        HttpHeaders.AUTHORIZATION,
+                        "Bearer " + musicAssistantToken)
+                .body(body)
+                .retrieve()
+                .body(String.class);
+    }
+
+    @GetMapping("/ma-prev")
+    public String previousTrack() {
+
+        String body = """
+                {
+                  "message_id": "pipboy",
+                  "command": "player_queues/previous",
+                  "args": {
+                    "queue_id": "%s"
+                  }
+                }
+                """.formatted(musicAssistantPlayerId);
+
+        return restClient.post()
+                .uri("/api")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(
+                        HttpHeaders.AUTHORIZATION,
+                        "Bearer " + musicAssistantToken)
+                .body(body)
+                .retrieve()
+                .body(String.class);
+    }
+
+    @GetMapping("/ma-toggle")
+    public String togglePlayPause() {
+
+        String body = """
+                {
+                  "message_id": "pipboy",
+                  "command": "player_queues/play_pause",
+                  "args": {
+                    "queue_id": "%s"
+                  }
+                }
+                """.formatted(musicAssistantPlayerId);
+
+        return restClient.post()
+                .uri("/api")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(
+                        HttpHeaders.AUTHORIZATION,
+                        "Bearer " + musicAssistantToken)
+                .body(body)
+                .retrieve()
+                .body(String.class);
+    }
+
+    @GetMapping("/ma-now-playing")
+    public JsonNode getNowPlaying() {
+
+        String response = restClient.post()
+                .uri("/api")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(
+                        HttpHeaders.AUTHORIZATION,
+                        "Bearer " + musicAssistantToken)
+                .body("""
+                        {
+                          "message_id": "pipboy",
+                          "command": "players/all"
+                        }
+                        """)
+                .retrieve()
+                .body(String.class);
+
+        try {
+            JsonNode players = objectMapper.readTree(response);
+
+            for (JsonNode player : players) {
+                if (musicAssistantPlayerId
+                        .equals(player.path("player_id").asText())) {
+
+                    return player.path("current_media");
+                }
+            }
+
+            return objectMapper.createObjectNode();
+
+        } catch (Exception ex) {
+            throw new IllegalStateException("Unable to read MA player", ex);
+        }
+    }
+
+    @GetMapping("/ma-image")
+    public ResponseEntity<byte[]> getMaImage(
+            @RequestParam String path) {
+
+        byte[] image = restClient.get()
+                .uri(path)
+                .header(
+                        HttpHeaders.AUTHORIZATION,
+                        "Bearer " + musicAssistantToken)
+                .retrieve()
+                .body(byte[].class);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(image);
     }
 }

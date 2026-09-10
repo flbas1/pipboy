@@ -62,5 +62,39 @@ loadMenu().catch(error => {
         "SYSTEM ERROR";
 });
 
+document.getElementById("prev-track").onclick = () =>
+    fetch("/api/ma-prev");
+
+document.getElementById("play-pause").onclick = () =>
+    fetch("/api/ma-toggle");
+
+document.getElementById("next-track").onclick = () =>
+    fetch("/api/ma-next");
+
+
+function updateNowPlaying() {
+    fetch("/api/ma-now-playing")
+        .then(response => response.json())
+        .then(song => {
+            if (song.title) {
+                document.getElementById("now-playing").textContent =
+                    song.artist + " - " + song.title;
+
+                if (song.image_url) {
+                    const imageUrl = new URL(song.image_url);
+
+                    document.getElementById("album-art").src =
+                        "/api/ma-image?path=" +
+                        encodeURIComponent(imageUrl.pathname + imageUrl.search);
+                }
+            }
+        });
+}
+
+
+
+updateNowPlaying();
+setInterval(updateNowPlaying, 5000);
+
 updateClock();
 setInterval(updateClock, 1000);

@@ -1,0 +1,23 @@
+{
+  "profile": "birthday",
+  "title": "LITTLE GHOUL'S BDAY WASTELAND PARTY",
+  "theme": "fallout",  
+  "menu": {
+    "food": [
+      "Brahmin Burgers",
+      "BlamCo Mac & Cheese",
+      "Mirelurk Crab Cakes",
+      "Government Cheese — 200% More Preservatives!",
+      "Sugar Bomb Carrots",
+      "Potato Crisps"
+    ],
+    "treats": [
+      "Dandy Boy Cake",
+      "Dandy Boy Chocolate Apples"
+    ],
+    "beverages": [
+      "Nuka-Cola",
+      "Nuka-Sasparilla"
+    ]
+  }
+}
