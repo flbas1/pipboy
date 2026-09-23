@@ -13,7 +13,11 @@ async function loadMenu() {
     renderItems("food", profile.menu.food);
     renderItems("treats", profile.menu.treats);
     renderItems("beverages", profile.menu.beverages);
+    renderItems("dessert", profile.menu.dessert);
+
+        // renderItems("Appetizers", profile.menu.appetizers);
 }
+
 
 function renderItems(elementId, items) {
     const container = document.getElementById(elementId);
