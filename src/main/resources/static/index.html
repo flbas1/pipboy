@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pip-Boy 2100</title>
     <link rel="stylesheet" href="/pipboy.css">
-    <link href="/favicon.ico" rel="icon" type="image/x-icon">
+    <link href="/favicon.png" rel="icon" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <!-- <link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAsoRMAMjr+QAiGQsArN3wABsUCQBy3fsAm8TUAA0WHQC35PUAbU8eALDf8wAcJCcAVZO8ALS0tgCt3fEACAcGALHh7gAvhrEAO2N+AK58QwBCPjgAKyUcAFpBHgBbmL8AMIi0AODe3AAjYG8AGk9dAL3n9gATEA4AaU0dALaLUwBLfJsADAgEADmeyQC0h04AJlVlAEo2FQBmSxsAQi0WAAkJCgAEBQUAtYlRAJfL5ABEOzEAsn9EAEJ1lwDI7PkAyez5AEiXqwAfXGsAbEwpAKp3OgBrTR4AQ9P7AMPq9wCw4PMARDkvAMDm8gCFXC0AfJ2pAKl1OAA1nMgAAgEBAK3e8QDQ4ecArntAAI9mMgBuWzoANFZsAHBQHwBTjrUACAYEAGtOHQANDAwACAgHAGROLgBlSRsATFZbADg3NwADAwUAHSMmAFOSuwBmUDEAOVdqAMDo9wB0ViAARNT7AGaiyACsej0ArXo9ACoiGQBD0vkAbN/8ADtdcwCy4/YAhbzZAGSgxgCfbTEAbafLAGN8hgDC6/gAqHQ2ABMQCwB53/wAsX5DAFhQRACx4fQAjW5AAMfr+ACyhEsAyOv4AEmEkgCzhEsAakwdAKp2OQC3ilMAMzs/ALfk9AAuSk8AtIZOAK/f8gBfnMIAsN/yAKt4PAAQExQAOzEhACEoKwCndDcALnSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATXy9IAAAAAAAAAAAACnMDQTlgDA8mVycFAABcRxRqfTk5RgRsIHUfSiIATi5bSSpNHlFCRUwQb0QfAAB5NBtRaFBreBUpTmNDAAAAcis8LX9LOhEXGkA+dAAAAAABJFQWbVhdKDVngQAAAAAAAABaPyF7WSM2AAAAAAAAAAAAAAJ2emEAAAAAAAAAAAAAAD1PBw5lGAgAAAAAAAAAAABuMAl3HQ1iAAAAAAAAAAAAZgB+VoAsVQAAAAAAAAAAACUxOAtSZBkAAAAAAAAAAABecXB8O1MSAAAAAAAAAAAAMgBpBjeCAAAAAAAAAAAAAAAAABwzAAAAAAAAAPh/AADAAwAAAAEAAAABAAAAAwAAgAMAAMAHAADwHwAA+H8AAPAfAADwHwAA8B8AAPAfAADwHwAA9D8AAP5/AAA=" rel="icon" type="image/x-icon"> -->
 </head>
+
+
 
 <body>
 
@@ -113,7 +116,7 @@
                         ☐ Avoid Deathclaws
                     </div>
 
-                        <div class="objective">
+                    <div class="objective">
                         ☐ Orlando Settlement Survival Side Quest (optional)
                     </div>
                 </div>
@@ -175,17 +178,18 @@
 
                         <p>
                             REMINDER:<br>
-                            DRINK RESPONSIBLY.<hr />
+                            DRINK RESPONSIBLY.
+                            <hr />
                             IMPORTANT FIELD NOTE:
-<br>
-EXTENSIVE PHOTOGRAPHIC AND VIDEO RECORDING WILL BE CONDUCTED THROUGHOUT THE MISSION.
-<br>
-PURPOSE:
-TO PROVIDE IRREFUTABLE EVIDENCE OF THE SUBJECT'S PROGRESS TOWARD COMPLETE INEBRIATION.
-<br>
-DATA MAY BE REVIEWED FOLLOWING THE MISSION.
-<br>
-SUBJECT WILL DENY EVERYTHING.
+                            <br>
+                            EXTENSIVE PHOTOGRAPHIC AND VIDEO RECORDING WILL BE CONDUCTED THROUGHOUT THE MISSION.
+                            <br>
+                            PURPOSE:
+                            TO PROVIDE IRREFUTABLE EVIDENCE OF THE SUBJECT'S PROGRESS TOWARD COMPLETE INEBRIATION.
+                            <br>
+                            DATA MAY BE REVIEWED FOLLOWING THE MISSION.
+                            <br>
+                            SUBJECT WILL DENY EVERYTHING.
                         </p>
                     </div>
                 </div>
@@ -206,6 +210,21 @@ SUBJECT WILL DENY EVERYTHING.
 
     <script src="/pipboy.js"></script>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('PipBoy service worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('PipBoy service worker registration failed:', error);
+                    });
+            });
+        }
+
+
+    </script>
 </body>
 
 </html>
