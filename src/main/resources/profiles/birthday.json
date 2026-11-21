@@ -1,10 +1,10 @@
 {
-  "profile": "bdaygirl",
-  "title": "BDAY GIRL'S WASTELAND PARTY",
+  "profile": "birthday.json",
+  "title": "WASTELAND BIRTHDAY PARTY",
   "theme": "fallout",
   "menu": {
     "food": [
-      "Brahmin Burgers",
+      "xBrahmin Burgers",
       "BlamCo Mac & Cheese",
       "Mirelurk Crab Cakes",
       "Government Cheese — 200% More Preservatives!",
@@ -17,6 +17,10 @@
     ],
     "beverages": [
       "Nuka-Cola",
+      "Nuka-Sasparilla"
+    ],
+    "dessert":[
+       "Nuka-Cola",
       "Nuka-Sasparilla"
     ]
   }

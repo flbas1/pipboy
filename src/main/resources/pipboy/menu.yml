@@ -1,0 +1,16 @@
+tabs:
+  - id: stats
+    label: STAT
+    menu:
+      - id: status
+        label: STATUS
+      - id: special
+        label: SPECIAL
+
+  - id: items
+    label: ITEMS
+    menu:
+      - id: weapons
+        label: WEAPONS
+      - id: apparel
+        label: APPAREL

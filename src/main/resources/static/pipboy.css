@@ -348,6 +348,61 @@ h1 {
     letter-spacing: -2px;
 }
 
+
+.radio {
+    border: 2px solid #33ff33;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.radio-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+.radio-layout {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.album-art-container {
+    flex: 0 0 220px;
+}
+
+.album-art {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+
+    /* Pip-Boy treatment */
+    filter: grayscale(100%) sepia(100%) hue-rotate(55deg) saturate(500%);
+
+    border: 2px solid #33ff33;
+    box-shadow: 0 0 15px #33ff33;
+}
+
+@media (max-width: 600px) {
+    .radio-layout {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .album-art-container {
+        flex: none;
+    }
+
+    .album-art {
+        width: 160px;
+        height: 160px;
+    }
+
+    .radio {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 /* =========================================================
    QUEST
    ========================================================= */
@@ -518,4 +573,30 @@ footer .selected {
     .screen::after {
         animation: none;
     }
+}
+
+.directions-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.directions-image {
+    width: 50%;
+}
+
+.directions-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.directions-text {
+    xwidth: 50%;
+    box-sizing: border-box;
+    border: 2px solid #8cff00;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 16px;
+    line-height: 1.5;
 }
